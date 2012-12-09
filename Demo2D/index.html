@@ -1,0 +1,16 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>新框架测试</title>
+    <script src="../FreeJs/system.js"></script>
+    <script>
+        setRootDirectory("../FreeJs/");
+        using("test");
+    </script>
+</head>
+<body>
+    <canvas id="testCanvas" width="800px" height="600px"></canvas>
+    <input type="button" value="全屏" onclick="checker.isFullscreen()?page.Fullscreen(false):page.Fullscreen(true);" />
+    <input type="button" value="显示消息" onclick="showNotification(null, '提示', '我成功将功能移植到新框架上咯！', 5000);" />
+</body>
+</html>
