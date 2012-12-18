@@ -8,11 +8,8 @@
         鼠标
     */
     function Mouse() {
-        /*
-            预留功能
-                //是否被锁定
-                var isLock = false;
-        */
+        //是否被锁定
+        this.isLock = false;
 
         //按键状态
         this.leftButton = false;
@@ -25,6 +22,33 @@
 
         //画布对象
         var canvasObj = document.getElementById(canvas.objectName);
+
+        document.addEventListener('pointerlockchange', lockChange, false);
+        document.addEventListener('mozpointerlockchange', lockChange, false);
+        document.addEventListener('webkitpointerlockchange', lockChange, false);
+
+        canvasObj.requestPointerLock = (canvasObj.requestPointerLock || canvasObj.mozRequestPointerLock || canvasObj.webkitRequestPointerLock || function () { });
+
+        //锁定状态更改
+        function lockChange() {
+            if (document.pointerLockElement === canvasObj ||
+                document.mozPointerLockElement === canvasObj ||
+                document.webkitPointerLockElement === canvasObj)
+            {
+                window.mouse.isLock = true;
+            }
+            else
+            {
+                window.mouse.isLock = false;
+            }
+        }
+
+        /*
+            锁定鼠标
+        */
+        this.Lock = function () {
+            canvasObj.requestPointerLock();
+        }
 
         /*
             设置按钮状态
@@ -70,15 +94,25 @@
         canvasObj.addEventListener('mousemove', function (e) {
             //元素位置
             var elLocation = page.getObjectLocation(canvas.objectName);
-            if (!checker.isFullscreen())
+            if (window.mouse.isLock)
             {
-                window.mouse.x = e.clientX - elLocation.x + 1;
-                window.mouse.y = e.clientY - elLocation.y + 1;
+                var movementX = e.movementX || e.mozMovementX || e.webkitMovementX || 0;
+                var movementY = e.movementY || e.mozMovementY || e.webkitMovementY || 0;
+                window.mouse.x = movementX;
+                window.mouse.y = movementY;
             }
             else
             {
-                window.mouse.x = e.clientX + 1;
-                window.mouse.y = e.clientY + 1;
+                if (!checker.isFullscreen())
+                {
+                    window.mouse.x = e.clientX - elLocation.x + 1;
+                    window.mouse.y = e.clientY - elLocation.y + 1;
+                }
+                else
+                {
+                    window.mouse.x = e.clientX + 1;
+                    window.mouse.y = e.clientY + 1;
+                }
             }
         }, false);
     }

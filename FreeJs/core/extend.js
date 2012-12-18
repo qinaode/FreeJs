@@ -51,14 +51,14 @@ window.offLineSave = {
 */
 function showNotification(icon, title, body, time) {
     var c = checker;
-    if (!c.isSupportNotification()) return false;
+    if (!c.hasNotification()) return false;
     if (!c.isNotificationPermission())
     {
-        c.isSupportNotification().requestPermission();
+        c.hasNotification().requestPermission();
     }
     if (c.isNotificationPermission())
     {
-        var _notify = c.isSupportNotification().createNotification(icon || "", title || "Tips", body);
+        var _notify = c.hasNotification().createNotification(icon || "", title || "Tips", body);
         if (time)
         {
             _notify.ondisplay = function () { setTimeout(function () { _notify.cancel(); }, time); };

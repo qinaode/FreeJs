@@ -94,7 +94,7 @@ function draw() {
     sb.fillText("FreeJs2D图形库图元演示", 100, 450, color.skyBlue, "Bold 52px 宋体");
     sb.fillText("by. Nivk", 500, 520, color.cyan, "Bold 52px 宋体");
     sb.setShadow(0, 0, 10, color.black);
-    sb.fillText("鼠标: X=" + mouse.x + " Y=" + mouse.y, 10, 500, color.white, "Bold 24px 宋体");
+    sb.fillText("鼠标: Lock=" + mouse.isLock + " X=" + mouse.x + " Y=" + mouse.y, 10, 500, color.white, "Bold 24px 宋体");
     sb.fillText("按钮: L=" + mouse.leftButton + " M=" + mouse.middleButton + " R=" + mouse.rightButton, 10, 530, color.white, "Bold 24px 宋体");
     sb.fillText("按键: K=" + keyboard.isKeyDown(keys.k) + " E=" + keyboard.isKeyDown(keys.e) + " Y=" + keyboard.isKeyDown(keys.y), 10, 560, color.white, "Bold 24px 宋体");
     sb.end();

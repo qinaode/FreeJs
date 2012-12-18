@@ -278,8 +278,28 @@
         //设置是否使用WebGL属性
         canvas.isWebGL = (useLibrary === "3d");
 
-        //设置更新绘制计时器
-        setInterval(function () {
+        window.requestAnimationFrame = (function () {
+            return window.requestAnimationFrame ||
+                   window.webkitRequestAnimationFrame ||
+                   window.mozRequestAnimationFrame ||
+                   window.oRequestAnimationFrame ||
+                   window.msRequestAnimationFrame ||
+                   function (/* function */ callback, /* DOMElement */ element) {
+                       return window.setTimeout(callback, 1000 / 60);
+                   }
+        })();
+
+        window.cancelAFrame = (function () {
+            return window.cancelAnimationFrame ||
+                   window.webkitCancelAnimationFrame ||
+                   window.mozCancelAnimationFrame ||
+                   window.oCancelAnimationFrame ||
+                   function (id) {
+                       window.clearTimeout(id);
+                   };
+        })();
+
+        function draw() {
             if (resources.isLoading)
             {
                 if (canvas.drawLoad) canvas.drawLoad();
@@ -288,8 +308,26 @@
             {
                 if (canvas.update) canvas.update();
                 if (canvas.draw) canvas.draw();
+                if (window.mouse.isLock) window.mouse.x = window.mouse.y = 0;
             }
-        }, 16.7);
+            window.requestAnimationFrame(draw, c);
+        }
+
+        window.requestAnimationFrame(draw, c);
+
+        ////设置更新绘制计时器
+        //setInterval(function () {
+        //    if (resources.isLoading)
+        //    {
+        //        if (canvas.drawLoad) canvas.drawLoad();
+        //    }
+        //    else
+        //    {
+        //        if (canvas.update) canvas.update();
+        //        if (canvas.draw) canvas.draw();
+        //        if (window.mouse.isLock) window.mouse.x = window.mouse.y = 0;
+        //    }
+        //}, 16.7);
 
         /*
             禁止页面选择

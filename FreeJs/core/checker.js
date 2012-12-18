@@ -9,7 +9,7 @@ var checker = {
         返回值：
           --bool类型
     */
-    isLocalStorage: function () {
+    hasLocalStorage: function () {
         //检查是否支持本地存储
         if (window.localStorage)
         {
@@ -58,7 +58,7 @@ var checker = {
         错误处理：
           --弹出对话框并输出到控制台
     */
-    isSupportCanvas: function () {
+    hasCanvas: function () {
         if (!document.createElement("canvas").getContext)
         {
             throw "该浏览器不支持Html5画布标签。";
@@ -68,7 +68,7 @@ var checker = {
     /*
         检查是否支持Flash
     */
-    isSupportFlash: function () {
+    hasFlash: function () {
         var isIE = (navigator.appVersion.indexOf("MSIE") >= 0);
         var hasFlash = true;
         if (isIE)
@@ -95,8 +95,7 @@ var checker = {
           --字符串格式
     */
     supportAudioFormat: function () {
-        //通过判断浏览器选择使用什么格式的音频
-        return (checker.userAgent.indexOf('Firefox') >= 0 || checker.userAgent.indexOf('Opera') >= 0) ? ".ogg" : ".mp3";
+        return new Audio().canPlayType("audio/ogg") ? ".ogg" : ".mp3";
     },
     /*
         检查浏览器
@@ -123,7 +122,7 @@ var checker = {
     /*
         检测是否支持全屏
     */
-    isSupportFullscreen: function () {
+    hasFullscreen: function () {
         var doc = document.documentElement;
         var isSupport = ('requestFullscreen' in doc) ||
                ('webkitRequestFullScreen' in doc) ||
@@ -141,13 +140,19 @@ var checker = {
     /*
         检查是否支持通知
     */
-    isSupportNotification: function () {
+    hasNotification: function () {
         return window.webkitNotifications || window.Notifications;
     },
     /*
         检查是否获得通知权限
     */
     isNotificationPermission: function () {
-        return !!(checker.isSupportNotification().checkPermission() === 0);
+        return !!(checker.hasNotification().checkPermission() === 0);
+    },
+    /*
+        检查是否支持网页连接
+    */
+    hasWebSockets: function () {
+        return !!(window.WebSocket);
     }
 };
