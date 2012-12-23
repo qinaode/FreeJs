@@ -1,4 +1,4 @@
-﻿(function (window) {
+﻿(function (window) { 
     //创建页面对象
     var page = {};
 
