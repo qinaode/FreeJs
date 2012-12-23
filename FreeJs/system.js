@@ -308,7 +308,7 @@
             {
                 if (canvas.update) canvas.update();
                 if (canvas.draw) canvas.draw();
-                if (window.mouse.isLock) window.mouse.x = window.mouse.y = 0;
+                if (window.mouse.isLocked) window.mouse.x = window.mouse.y = 0;
             }
             window.requestAnimationFrame(draw, c);
         }
@@ -325,7 +325,7 @@
         //    {
         //        if (canvas.update) canvas.update();
         //        if (canvas.draw) canvas.draw();
-        //        if (window.mouse.isLock) window.mouse.x = window.mouse.y = 0;
+        //        if (window.mouse.isLocked) window.mouse.x = window.mouse.y = 0;
         //    }
         //}, 16.7);
 

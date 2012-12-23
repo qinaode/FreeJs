@@ -9,7 +9,7 @@
     */
     function Mouse() {
         //是否被锁定
-        this.isLock = false;
+        this.isLocked = false;
 
         //按键状态
         this.leftButton = false;
@@ -35,11 +35,11 @@
                 document.mozPointerLockElement === canvasObj ||
                 document.webkitPointerLockElement === canvasObj)
             {
-                window.mouse.isLock = true;
+                window.mouse.isLocked = true;
             }
             else
             {
-                window.mouse.isLock = false;
+                window.mouse.isLocked = false;
             }
         }
 
@@ -94,7 +94,7 @@
         canvasObj.addEventListener('mousemove', function (e) {
             //元素位置
             var elLocation = page.getObjectLocation(canvas.objectName);
-            if (window.mouse.isLock)
+            if (window.mouse.isLocked)
             {
                 var movementX = e.movementX || e.mozMovementX || e.webkitMovementX || 0;
                 var movementY = e.movementY || e.mozMovementY || e.webkitMovementY || 0;
